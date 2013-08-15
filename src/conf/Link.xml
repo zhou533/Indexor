@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chouti.Indexor.mapper.LinksMapper">
+    <resultMap id="BaseResultMap" type="com.chouti.Indexor.model.Link">
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="content" property="summary" jdbcType="VARCHAR" />
+        <result column="phone_content" property="content" jdbcType="VARCHAR" />
+        <result column="jid" property="jid" jdbcType="VARCHAR" />
+        <result column="url" property="url" jdbcType="VARCHAR" />
+        <result column="subject_id" property="subjectId" jdbcType="INTEGER" />
+        <result column="createTime" property="createTime" jdbcType="BIGINT" />
+        <result column="ups" property="ups" jdbcType="BIGINT" />
+        <result column="score" property="score" jdbcType="DOUBLE" />
+    </resultMap>
+
+    <select id="getLinks" parameterType="map" resultMap="BaseResultMap">
+        select id, title, content, jid, url, subject_id, createTime, ups, score
+        from chouti_links
+        where action!=2
+        order by
+        id asc
+        limit #{start},#{limit}
+    </select>
+
+    <select id="getCount" resultType="java.lang.Integer">
+        select COUNT(*) from chouti_links where action!=2
+    </select>
+
+    <select id="getFullLinks" parameterType="map" resultMap="BaseResultMap">
+        select a.id, a.title, a.content, b.phone_content, a.jid, a.url, a.subject_id, a.createTime, a.ups, a.score
+        from chouti_links a
+        left join chouti_links_mobile_content b
+        on  a.id=b.link_id
+        where a.action!=2
+        limit #{start},#{limit}
+    </select>
+
+</mapper>
