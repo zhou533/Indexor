@@ -28,7 +28,7 @@
     </select>
 
     <select id="getFullLinks" parameterType="map" resultMap="BaseResultMap">
-        select a.id, a.title, a.content, b.phone_content, a.jid, a.url, a.subject_id, a.createTime, a.ups, a.score
+        select a.id, a.title, a.content, b.html_content, a.jid, a.url, a.subject_id, a.createTime, a.ups, a.score
         from chouti_links a
         left join chouti_links_mobile_content b
         on  a.id=b.link_id

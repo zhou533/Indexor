@@ -20,7 +20,7 @@ public class Link {
     private Double score;
 
     public String getContent() {
-        return content;
+        return content.replaceAll("<.*?>", "");
     }
 
     public void setContent(String content) {

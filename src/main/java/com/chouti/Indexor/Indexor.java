@@ -1,6 +1,14 @@
 package com.chouti.Indexor;
 
+import com.chouti.Indexor.model.Link;
+import com.chouti.SearchService.result.ChouTiSearchServiceResult;
+import com.chouti.SearchService.search.ChouTiSearch;
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,5 +22,45 @@ public class Indexor {
 
     public static void main(String[] args){
 
+        DateTime now = new DateTime();
+        DateTimeFormatter formatter = ISODateTimeFormat.dateTime();
+        LOGGER.info("Indexor start..." + formatter.print(now));
+
+        Integer linkCount = DBEngine.getInstance().getLinkCount();
+        LOGGER.info("Links total count:" + linkCount);
+
+        int start = 0, size = 25;
+        while (start < linkCount){
+            List<Link> links = DBEngine.getInstance().getLinks(start, size);
+            if (null != links){
+                ChouTiSearch chouTiSearch = IndexEngine.getInstance();
+                for (Link l : links){
+                    ChouTiSearchServiceResult result = chouTiSearch.putLinkData(
+                            l.getId(),
+                            l.getTitle(),
+                            l.getSummary(),
+                            l.getContent(),
+                            l.getUrl(),
+                            l.getJid(),
+                            l.getSubjectId(),
+                            l.getCreateTime(),
+                            l.getUps(),
+                            l.getScore()
+                    );
+                    if (result.getCode() != 0){
+                        LOGGER.info("ChouTi Search index " + l.getId() + " failed : " + result.getDescription());
+                    }else {
+                        LOGGER.info("ChouTi Search index " + l.getId() + " done!");
+                    }
+                }
+                start += links.size();
+                LOGGER.info("" + links.size() + " links index done at " + formatter.print(new DateTime()));
+            }else {
+                LOGGER.info("getLinks error..");
+            }
+        }
+
+        DateTime end = new DateTime();
+        LOGGER.info("All done at " + formatter.print(end) + ", seconds:" + (end.getMillis() - now.getMillis())/1000);
     }
 }
