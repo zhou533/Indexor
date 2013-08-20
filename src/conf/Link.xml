@@ -17,14 +17,14 @@
     <select id="getLinks" parameterType="map" resultMap="BaseResultMap">
         select id, title, content, jid, url, subject_id, createTime, ups, score
         from chouti_links
-        where action!=2
+        where action!=2 and id>=#{startId}
         order by
         id asc
         limit #{start},#{limit}
     </select>
 
-    <select id="getCount" resultType="java.lang.Integer">
-        select COUNT(*) from chouti_links where action!=2
+    <select id="getCount" parameterType="map" resultType="java.lang.Integer">
+        select COUNT(*) from chouti_links where action!=2 and id>=#{startId}
     </select>
 
     <select id="getFullLinks" parameterType="map" resultMap="BaseResultMap">

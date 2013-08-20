@@ -22,16 +22,23 @@ public class Indexor {
 
     public static void main(String[] args){
 
+        Integer startId = 0;
+        if (args != null && args.length > 0){
+            startId = Integer.valueOf(args[0]);
+        }
+
         DateTime now = new DateTime();
         DateTimeFormatter formatter = ISODateTimeFormat.dateTime();
         LOGGER.info("Indexor start..." + formatter.print(now));
 
-        Integer linkCount = DBEngine.getInstance().getLinkCount();
-        LOGGER.info("Links total count:" + linkCount);
+        //Integer linkCount = DBEngine.getInstance().getLinkCount(startId);
+        //LOGGER.info("Links total count:" + linkCount);
 
+        int linkCount;
         int start = 0, size = 25;
-        while (start < linkCount){
-            List<Link> links = DBEngine.getInstance().getLinks(start, size);
+        do{
+            linkCount = 0;
+            List<Link> links = DBEngine.getInstance().getLinks(startId, start, size);
             if (null != links){
                 ChouTiSearch chouTiSearch = IndexEngine.getInstance();
                 for (Link l : links){
@@ -54,11 +61,12 @@ public class Indexor {
                     }
                 }
                 start += links.size();
+                linkCount = links.size();
                 LOGGER.info("" + links.size() + " links index done at " + formatter.print(new DateTime()));
             }else {
                 LOGGER.info("getLinks error..");
             }
-        }
+        }while (0 < linkCount);
 
         DateTime end = new DateTime();
         LOGGER.info("All done at " + formatter.print(end) + ", seconds:" + (end.getMillis() - now.getMillis())/1000);

@@ -20,7 +20,7 @@ public class Link {
     private Double score;
 
     public String getContent() {
-        return content.replaceAll("<.*?>", "");
+        return content != null ? content.replaceAll("<.*?>", "") : null;
     }
 
     public void setContent(String content) {
@@ -28,7 +28,7 @@ public class Link {
     }
 
     public Long getCreateTime() {
-        return createTime;
+        return createTime != null ? createTime : 0;
     }
 
     public void setCreateTime(Long createTime) {
@@ -52,7 +52,7 @@ public class Link {
     }
 
     public Double getScore() {
-        return score;
+        return score != null ? score : 0;
     }
 
     public void setScore(Double score) {
@@ -60,7 +60,7 @@ public class Link {
     }
 
     public Integer getSubjectId() {
-        return subjectId;
+        return subjectId != null ? subjectId : 0;
     }
 
     public void setSubjectId(Integer subjectId) {
@@ -84,7 +84,7 @@ public class Link {
     }
 
     public Integer getUps() {
-        return ups;
+        return ups != null ? ups : 0;
     }
 
     public void setUps(Integer ups) {

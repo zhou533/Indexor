@@ -40,7 +40,7 @@ public class DBTest {
             //System.out.println("Count: " + count);
 
             LinksMapper linksMapper = sqlSession.getMapper(LinksMapper.class);
-            List<Link> links = linksMapper.getFullLinks(0, 5);
+            List<Link> links = linksMapper.getLinks(0, 0, 5);
             for (Link l : links){
                 System.out.println("Link: " + l.getId() + ", ");
             }

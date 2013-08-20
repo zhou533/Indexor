@@ -40,24 +40,24 @@ public class DBEngine {
         return dbEngine;
     }
 
-    public Integer getLinkCount(){
+    public Integer getLinkCount(Integer startId){
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         try {
             LinksMapper linksMapper = sqlSession.getMapper(LinksMapper.class);
-            Integer count = linksMapper.getCount();
+            Integer count = linksMapper.getCount(startId);
             return count;
         }finally {
             sqlSession.close();
         }
     }
 
-    public List<Link> getLinks(int start, int size){
+    public List<Link> getLinks(int startId, int start, int size){
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         try {
             LinksMapper linksMapper = sqlSession.getMapper(LinksMapper.class);
-            List<Link> links = linksMapper.getFullLinks(start, size);
+            List<Link> links = linksMapper.getLinks(startId, start, size);
             return links;
         }finally {
             sqlSession.close();
