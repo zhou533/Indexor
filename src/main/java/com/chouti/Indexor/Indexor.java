@@ -35,7 +35,7 @@ public class Indexor {
         //LOGGER.info("Links total count:" + linkCount);
 
         int linkCount;
-        int start = 0, size = 25;
+        int start = 0, size = 60;
         do{
             linkCount = 0;
             List<Link> links = DBEngine.getInstance().getLinks(startId, start, size);

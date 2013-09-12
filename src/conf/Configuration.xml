@@ -11,9 +11,14 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver" />
-                <property name="url" value="jdbc:mysql://172.16.1.152:3306/chouti_digg?useUnicode=true&amp;characterEncoding=UTF-8" />
-                <property name="username" value="chouti_digg" />
-                <property name="password" value="chouti" />
+                <!--
+                <property name="url" value="jdbc:mysql://192.168.2.17:8300/chouti_digg?useUnicode=true&amp;characterEncoding=UTF-8" />
+                <property name="username" value="mychoutiol" />
+                <property name="password" value="gppwd@choutidbol" />
+                -->
+                <property name="url" value="jdbc:mysql://192.168.2.17:8300/chouti_digg?useUnicode=true&amp;characterEncoding=UTF-8" />
+                <property name="username" value="mychoutiol" />
+                <property name="password" value="gppwd@choutidbol" />
             </dataSource>
         </environment>
     </environments>

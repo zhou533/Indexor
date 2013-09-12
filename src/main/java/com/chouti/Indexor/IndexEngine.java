@@ -11,7 +11,7 @@ import com.chouti.SearchService.search.ChouTiSearch;
  * To change this template use File | Settings | File Templates.
  */
 public class IndexEngine {
-    private static final String SEARCH_SERVICE_URL = "http://test.zhouqiang.gozap.com:8080/service/ctSearch";
+    private static final String SEARCH_SERVICE_URL = "http://search.service.chouti.com/service/ctSearch";
     private static ChouTiSearch chouTiSearch;
 
     static {
